@@ -1,0 +1,59 @@
+{
+  "name": "AudioCatalogAPI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.ts",
+  "scripts": {
+    "start": "nodemon -r ts-node --files ./src/server.ts",
+    "build": "tsc && tsc-alias",
+    "serve": "node build/server.js",
+    "prettier:check": "prettier --check \"*/**/*.ts\" --loglevel=warn",
+    "prettier:fix": "prettier --write \"*/**/*.ts\" --loglevel=warn",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "hooks:pre-commit": "npm run prettier:fix && npm run lint:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DmytroKolisnyk2/audioCatalogAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DmytroKolisnyk2/audioCatalogAPI/issues"
+  },
+  "homepage": "https://github.com/DmytroKolisnyk2/audioCatalogAPI#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "joi": "^17.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.7.23",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^4.3.8",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run hooks:pre-commit"
+    }
+  }
+}
