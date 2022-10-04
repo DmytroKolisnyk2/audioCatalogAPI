@@ -1,7 +1,16 @@
+import { gracefulShutdown } from '@utils';
 import { app } from './app';
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
+  console.log(`process id: ${process.pid}`);
   console.log(`Server running. Use our API on port: ${PORT}`);
+});
+
+process.on('SIGTERM', (process) => {
+  gracefulShutdown(process, server);
+});
+process.on('SIGINT', (process) => {
+  gracefulShutdown(process, server);
 });
