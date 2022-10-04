@@ -4,7 +4,7 @@ import type http from 'http';
 const gracefulShutdown = async (
   signal: string,
   server: http.Server,
-): Promise<undefined> => {
+): Promise<void> => {
   console.log('\x1b[32m', `${signal} signal received.`);
   server.close(() => {
     console.log('\x1b[31m', 'Http server closed.');
