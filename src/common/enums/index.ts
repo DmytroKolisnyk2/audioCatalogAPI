@@ -1,1 +1,5 @@
-export { statusCode } from './statuses';
+export { StatusCode } from './statuses';
+export { ApiRoutes } from './api-routes';
+export { Models } from './models';
+export { AuthRoutes } from './auth-routes';
+export { AudioRoutes } from './audio-routes';

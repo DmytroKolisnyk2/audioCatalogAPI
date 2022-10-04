@@ -1,4 +1,4 @@
-import { statusCode } from '@enums';
+import { StatusCode } from '@enums';
 import type { Request, Response, NextFunction } from 'express';
 import { ErrorMessage } from '@utils';
 
@@ -7,7 +7,7 @@ export const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction,
-): any => {
+): Record<string, any> => {
   if (!err) {
     next();
   }
@@ -17,7 +17,7 @@ export const errorHandler = (
     const errorResponse = {
       path: url,
       method: method,
-      statusCode: err.status,
+      StatusCode: err.status,
       message: err.message,
     };
 
@@ -30,7 +30,7 @@ export const errorHandler = (
 
   console.log(err.message);
 
-  return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+  return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
     error: 'INTERNAL ERROR',
   });
 };
