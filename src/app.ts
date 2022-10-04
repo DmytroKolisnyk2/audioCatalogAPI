@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { appLogger, errorHandler } from '@middlewares';
+import { appLogger, errorHandler, localizationMiddleware } from '@middlewares';
 import './utils/dotenv';
 import './db/config';
 import { initRoutes } from '@routes';
@@ -16,6 +16,7 @@ app
   .use(appLogger)
   .use(cors())
   .use(express.json())
+  .use(localizationMiddleware)
   .use(routes)
   .use(errorHandler);
 
