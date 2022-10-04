@@ -12,6 +12,5 @@ process.on('SIGTERM', (process) => {
   gracefulShutdown(process, server);
 });
 process.on('SIGINT', (process) => {
-  console.log(gracefulShutdown(process, server));
   gracefulShutdown(process, server);
 });
