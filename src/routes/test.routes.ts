@@ -1,5 +1,6 @@
 import type { ApiRoutes } from '@enums';
-import { wrap } from '@helpers';
+import { TestRoutes } from '@enums';
+import { apiPath, wrap } from '@helpers';
 import { JoiValidationMiddleware } from '@middlewares';
 import type { Services } from '@services';
 import { testSchema } from '@validation';
@@ -11,6 +12,10 @@ export const initTestRoutes = (
   path: ApiRoutes,
 ): Router => {
   const router = Router();
+  router.get(
+    apiPath(path, TestRoutes.GREETING),
+    wrap((req: Request) => testService.getLocalizedGreeting(req.t)),
+  );
   router.get(
     path,
     wrap(() => testService.getMessages()),
