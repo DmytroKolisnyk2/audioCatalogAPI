@@ -1,4 +1,4 @@
-import { Models } from '@enums';
+import  { Models, Refs } from '@enums';
 import type { IProfile } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -13,21 +13,23 @@ const profileSchema = new Schema<IProfile>(
     },
     language: {
       type: String,
-      enum: ['en', 'uk'],
-      default: 'en',
+      enum: JSON.parse(Refs.LANGUAGES),
+      default: 'ua',
     },
     theme: {
       type: String,
-      enum: ['light', 'dark'],
+      enum: JSON.parse(Refs.THEMES),
       default: 'light',
     },
     avatarUrl: {
       type: String,
-      required: true,
+      required: false,
+      default: '#',
     },
     banner: {
       type: String,
-      required: true,
+      required: false,
+      default: '#',
     },
     genres: [
       {

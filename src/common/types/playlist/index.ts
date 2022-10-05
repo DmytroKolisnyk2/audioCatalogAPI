@@ -1,4 +1,4 @@
-import type { ObjectId, Types } from 'mongoose';
+import type { Types } from 'mongoose';
 
 export interface IPlayList {
   name: string;

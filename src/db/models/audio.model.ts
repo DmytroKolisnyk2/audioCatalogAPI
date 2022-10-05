@@ -15,7 +15,8 @@ const audioSchema = new Schema<IAudio>(
     },
     coverUrl: {
       type: String,
-      required: true,
+      required: false,
+      default: '#',
     },
     author: {
       type: Schema.Types.ObjectId,
@@ -35,7 +36,7 @@ const audioSchema = new Schema<IAudio>(
     genres: [
       {
         type: String,
-        required: true, 
+        required: true,
         enum: '',
       },
     ],
