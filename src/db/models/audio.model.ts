@@ -1,4 +1,5 @@
-import { Models } from '@enums';
+import { AudioConfig } from '@constants';
+import { Models, Refs } from '@enums';
 import type { IAudio } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -16,23 +17,24 @@ const audioSchema = new Schema<IAudio>(
     coverUrl: {
       type: String,
       required: false,
-      default: '#',
+      default: AudioConfig.audioCoverUrl,
     },
     author: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: Refs.USER,
     },
     usersLiked: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: Refs.USER,
       },
     ],
     listenCount: {
       type: Number,
+      min: 0,
       default: 0,
     },
-    playlists: [{ type: Schema.Types.ObjectId, ref: 'Playlist' }],
+    playlists: [{ type: Schema.Types.ObjectId, ref: Refs.PLAYLIST }],
     genres: [
       {
         type: String,

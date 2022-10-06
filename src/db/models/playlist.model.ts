@@ -1,4 +1,4 @@
-import  { Models } from '@enums';
+import  { Models, Refs, Genres } from '@enums';
 import type { IPlayList } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -6,25 +6,25 @@ import { model, Schema } from 'mongoose';
 const playlistSchema = new Schema<IPlayList>(
   {
     name: {
-      type: 'string',
+      type: String,
       required: true,
     },
     audios: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Audio',
+        ref: Refs.AUDIO,
         required: true,
       },
     ],
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: Refs.USER,
     },
     genres: [
       {
-        type: String,
+        type: Genres,
         required: true,
-        enum: '',
+        enum: Genres,
       },
     ],
   },
