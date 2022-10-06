@@ -1,4 +1,4 @@
-import  { Models, Refs, Genres } from '@enums';
+import { Models, Refs, Genres } from '@enums';
 import type { IPlayList } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';

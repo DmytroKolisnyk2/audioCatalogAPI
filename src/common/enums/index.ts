@@ -7,4 +7,4 @@ export { TestRoutes } from './test-routes';
 export { Refs } from './refs';
 export { Genres } from './genres';
 export { Languages } from './languages';
-export { Themes } from './themes'
+export { Themes } from './themes';

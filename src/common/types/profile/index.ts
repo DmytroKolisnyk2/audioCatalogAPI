@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import { Languages } from '@enums';
+import type { Languages } from '@enums';
 
 export interface IProfile {
   username: Types.ObjectId;
