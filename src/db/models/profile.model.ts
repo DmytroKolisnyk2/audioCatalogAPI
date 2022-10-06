@@ -15,12 +15,12 @@ const profileSchema = new Schema<IProfile>(
     language: {
       type: String,
       enum: [Languages.EN, Languages.UA],
-      default: Languages.UA,
+      default: ProfileConfig.language,
     },
     theme: {
       type: String,
       enum: [Themes.DARK, Themes.LIGHT],
-      default: Themes.LIGHT,
+      default: ProfileConfig.theme,
     },
     avatarUrl: {
       type: String,
