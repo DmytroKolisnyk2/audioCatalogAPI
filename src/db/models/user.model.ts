@@ -3,7 +3,7 @@ import type { IUser } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
 
-const testSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser>(
   {
     username: {
       type: String,
@@ -55,4 +55,4 @@ const testSchema = new Schema<IUser>(
   },
 );
 
-export const testModel: Model<IUser> = model(Models.USER, testSchema);
+export const testModel: Model<IUser> = model(Models.USER, userSchema);
