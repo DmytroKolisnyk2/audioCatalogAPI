@@ -9,8 +9,8 @@ const server = app.listen(PORT, () => {
 });
 
 process.on('SIGTERM', (process) => {
-  gracefulShutdown(process, server);
+  new gracefulShutdown(process, server).shutdown();
 });
 process.on('SIGINT', (process) => {
-  gracefulShutdown(process, server);
+  new gracefulShutdown(process, server).shutdown();
 });
