@@ -3,11 +3,14 @@ import type http from 'http';
 
 class gracefulShutdown {
   signal: string;
+
   server: http.Server;
+
   constructor(signal: string, server: http.Server) {
     this.signal = signal;
     this.server = server;
   }
+
   async shutdown(): Promise<void> {
     console.log('\x1b[32m', `${this.signal} signal received.`);
     this.server.close(() => {
