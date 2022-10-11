@@ -7,7 +7,7 @@ import { initRoutes } from '@routes';
 import { initServices } from '@services';
 import { initRepositories } from '@repositories';
 import swagger from 'swagger-ui-express';
-import swaggerDocs from './docs/openapi.json';
+import swaggerDocs from './docs/api.json';
 
 const app = express();
 const repositories = initRepositories();
