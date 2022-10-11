@@ -6,6 +6,8 @@ import './db/config';
 import { initRoutes } from '@routes';
 import { initServices } from '@services';
 import { initRepositories } from '@repositories';
+import swagger from 'swagger-ui-express';
+import swaggerDocs from './docs/openapi.json';
 
 const app = express();
 const repositories = initRepositories();
@@ -18,6 +20,7 @@ app
   .use(express.json())
   .use(localizationMiddleware)
   .use(routes)
+  .use('/docs', swagger.serve, swagger.setup(swaggerDocs))
   .use(errorHandler);
 
 export { app };
