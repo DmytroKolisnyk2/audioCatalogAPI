@@ -1,12 +1,12 @@
 import passport from 'passport';
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import type { IUser } from '@types';
 
-interface IAuth extends Request{
-    user: IUser;
+interface IAuth extends Request {
+  user: IUser;
 }
 
-export const auth = (req: IAuth, res: Response, next): void => {
+export const auth = (req: IAuth, res: Response, next: NextFunction): void => {
   passport.authenticate(
     'jwt',
     {

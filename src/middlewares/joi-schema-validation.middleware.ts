@@ -1,11 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
+import type { TFunction } from 'i18next';
 import type { Schema } from 'joi';
 
 export const JoiValidationMiddleware =
-  (schema: Schema) =>
+  (schema: (t: TFunction) => Schema) =>
   (req: Request, res: Response, next: NextFunction): void => {
     try {
-      const { error } = schema.validate(req.body);
+      const { error } = schema(req.t).validate(req.body);
       if (error) {
         throw new Error(error.message);
       }

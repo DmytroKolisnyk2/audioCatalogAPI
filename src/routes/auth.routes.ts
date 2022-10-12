@@ -3,8 +3,12 @@ import { AuthRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
 import type { Services } from '@services';
 import { Router } from 'express';
+// import type { Request, NextFunction, Response } from 'express';
 
-export const initAuthRoutes = (_: Services, path: ApiRoutes): Router => {
+export const initAuthRoutes = (
+  { authService }: Services,
+  path: ApiRoutes,
+): Router => {
   const router = Router();
   router.get(
     apiPath(path, AuthRoutes.CURRENT),
@@ -20,7 +24,7 @@ export const initAuthRoutes = (_: Services, path: ApiRoutes): Router => {
   );
   router.post(
     apiPath(path, AuthRoutes.REGISTER),
-    wrap(() => Promise.resolve('Register')),
+    wrap((req) => authService.register(req)),
   );
 
   return router;

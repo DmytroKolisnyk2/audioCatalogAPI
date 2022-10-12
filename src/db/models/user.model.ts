@@ -1,6 +1,5 @@
-import { Models } from '@enums';
+import { Models, Refs } from '@enums';
 import type { IUser } from '@types';
-import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
 
 const userSchema = new Schema<IUser>(
@@ -17,19 +16,19 @@ const userSchema = new Schema<IUser>(
     followers: [
       {
         type: Schema.Types.ObjectId,
-        ref: '',
+        ref: Refs.USER,
       },
     ],
     likedAudios: [
       {
         type: Schema.Types.ObjectId,
-        ref: '',
+        ref: Refs.AUDIO,
       },
     ],
     createdAudios: [
       {
         type: Schema.Types.ObjectId,
-        ref: '',
+        ref: Refs.AUDIO,
       },
     ],
     profile: {
@@ -38,14 +37,14 @@ const userSchema = new Schema<IUser>(
     playlist: [
       {
         type: Schema.Types.ObjectId,
-        ref: '',
+        ref: Refs.PLAYLIST,
       },
     ],
     role: String,
     history: [
       {
         type: Schema.Types.ObjectId,
-        ref: '',
+        ref: Refs.AUDIO,
       },
     ],
   },
@@ -55,4 +54,4 @@ const userSchema = new Schema<IUser>(
   },
 );
 
-export const testModel: Model<IUser> = model(Models.USER, userSchema);
+export const userModel = model<IUser>(Models.USER, userSchema);
