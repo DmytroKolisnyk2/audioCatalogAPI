@@ -3,7 +3,6 @@ import cors from 'cors';
 import { appLogger, errorHandler, localizationMiddleware } from '@middlewares';
 import './utils/dotenv';
 import './utils/cloudinary-config';
-import './utils/multer-config';
 import './db/config';
 import { initRoutes } from '@routes';
 import { initServices } from '@services';
