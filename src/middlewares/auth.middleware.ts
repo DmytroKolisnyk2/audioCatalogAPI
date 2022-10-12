@@ -1,10 +1,7 @@
 import passport from 'passport';
-import type { NextFunction, Request, Response } from 'express';
-import type { IUser } from '@types';
-
-interface IAuth extends Request {
-  user: IUser;
-}
+import type { NextFunction, Response } from 'express';
+import type { IAuth } from '@types';
+import { Unauthorized } from 'error';
 
 export const auth = (req: IAuth, res: Response, next: NextFunction): void => {
   passport.authenticate(
@@ -14,7 +11,7 @@ export const auth = (req: IAuth, res: Response, next: NextFunction): void => {
     },
     (error, user) => {
       if (error || !user) {
-        res.status(401).send('Unauthorized');
+        throw new Unauthorized(req.t);
       }
       req.user = user;
       next();

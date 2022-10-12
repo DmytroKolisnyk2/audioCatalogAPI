@@ -1,9 +1,11 @@
 import type { ApiRoutes } from '@enums';
 import { AuthRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
+import { JoiValidationMiddleware, auth } from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
-// import type { Request, NextFunction, Response } from 'express';
+import { authSchema } from '@validation';
+import type { IAuth, UserDto } from '@types';
 
 export const initAuthRoutes = (
   { authService }: Services,
@@ -12,18 +14,21 @@ export const initAuthRoutes = (
   const router = Router();
   router.get(
     apiPath(path, AuthRoutes.CURRENT),
-    wrap(() => Promise.resolve('Get current')),
+    auth,
+    wrap<Empty, UserDto, IAuth>((req) => authService.current(req as unknown as IAuth)),
   );
-  router.post(
+  router.get(
     apiPath(path, AuthRoutes.LOGOUT),
     wrap(() => Promise.resolve('Logout')),
   );
   router.post(
     apiPath(path, AuthRoutes.LOGIN),
-    wrap(() => Promise.resolve('Login')),
+    JoiValidationMiddleware(authSchema),
+    wrap((req) => authService.login(req)),
   );
   router.post(
     apiPath(path, AuthRoutes.REGISTER),
+    JoiValidationMiddleware(authSchema),
     wrap((req) => authService.register(req)),
   );
 

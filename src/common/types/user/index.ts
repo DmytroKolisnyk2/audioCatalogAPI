@@ -1,4 +1,5 @@
 import type { Types } from 'mongoose';
+import type {Request} from 'express';
 
 export interface IUser {
   _id?: Types.ObjectId;
@@ -14,7 +15,10 @@ export interface IUser {
 }
 
 export interface UserDto {
-  message: string;
   user: IUser;
   token: string;
+}
+
+export interface IAuth extends Request {
+  user: IUser;
 }
