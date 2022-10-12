@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/DmytroKolisnyk2/audioCatalogAPI#readme",
   "dependencies": {
+    "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
+    "@types/multer": "^1.4.7",
     "@types/node": "^18.7.23",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
