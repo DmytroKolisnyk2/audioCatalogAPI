@@ -5,4 +5,5 @@ const options = {
   expiresIn: '7d',
 };
 
-export const generate = (payload: IPayload): string => jwt.sign(payload, process.env.JWT_SECRET, options);
+export const generate = (payload: IPayload): string =>
+  jwt.sign(payload, process.env.JWT_SECRET, options);

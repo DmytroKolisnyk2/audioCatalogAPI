@@ -21,7 +21,10 @@ export class UserRepository {
     return await bcrypt.hash(rawPassword, 12);
   }
 
-  async verifyPassword(rawPassword: string, userPassword: string): Promise<boolean> {
+  async verifyPassword(
+    rawPassword: string,
+    userPassword: string,
+  ): Promise<boolean> {
     return await bcrypt.compare(rawPassword, userPassword);
   }
 
