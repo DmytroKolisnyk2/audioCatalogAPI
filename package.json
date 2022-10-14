@@ -5,7 +5,7 @@
   "main": "./src/server.ts",
   "scripts": {
     "start": "nodemon -r ts-node --files ./src/server.ts",
-    "build": "tsc && tsc-alias",
+    "build": "tsc",
     "serve": "node build/server.js",
     "prettier:check": "prettier --check \"*/**/*.ts\" --loglevel=warn",
     "prettier:fix": "prettier --write \"*/**/*.ts\" --loglevel=warn",
