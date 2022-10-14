@@ -1,3 +1,3 @@
 export const JwtConfig = {
-  DAYS: "7d"
+  DAYS: '7d',
 };
