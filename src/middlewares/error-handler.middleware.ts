@@ -28,7 +28,7 @@ export const errorHandler = (
     });
   }
 
-  console.log(err.message);
+  console.log(err);
 
   return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
     error: 'INTERNAL ERROR',

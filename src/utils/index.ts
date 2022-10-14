@@ -11,3 +11,4 @@ export {
 } from './multer-config';
 export * from './cloudinary-config';
 export * from './dotenv';
+export * from './jwtToken';

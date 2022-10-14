@@ -9,6 +9,7 @@ import { initServices } from '@services';
 import { initRepositories } from '@repositories';
 import swagger from 'swagger-ui-express';
 import swaggerDocs from './docs/api.json';
+import './db/config/jwtStrategy';
 
 const app = express();
 const repositories = initRepositories();
