@@ -1,5 +1,6 @@
 import type { Request } from 'express';
 import type { FileFilterCallback } from 'multer';
+import { imageExtension, audioExtension } from '@enums';
 import multer from 'multer';
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
@@ -35,11 +36,7 @@ export const fileImageFilter = (
   file: Express.Multer.File,
   callback: FileFilterCallback,
 ): void => {
-  if (
-    file.mimetype === 'image/png' ||
-    file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/jpeg'
-  ) {
+  if (file.mimetype in imageExtension) {
     callback(null, true);
   } else {
     callback(null, false);
@@ -50,11 +47,7 @@ export const fileAudioFilter = (
   file: Express.Multer.File,
   callback: FileFilterCallback,
 ): void => {
-  if (
-    file.mimetype === 'audio/mp4' ||
-    file.mimetype === 'audio/mpeg' ||
-    file.mimetype === 'application/ogg'
-  ) {
+  if (file.mimetype in audioExtension) {
     callback(null, true);
   } else {
     callback(null, false);
