@@ -1,0 +1,5 @@
+root: '*'
+
+CI/CD: .github/**/*
+
+backend: src/**/*
