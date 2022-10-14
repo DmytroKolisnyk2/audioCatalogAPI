@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type {Request} from 'express';
+import type { Request } from 'express';
 
 export interface IUser {
   _id?: Types.ObjectId;

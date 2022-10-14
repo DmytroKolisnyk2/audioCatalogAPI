@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import type { IPayload } from '@types';
+import { JwtConfig } from '@constants';
 
 const options = {
-  expiresIn: '7d',
+  expiresIn: JwtConfig.DAYS,
 };
 
 export const generate = (payload: IPayload): string =>

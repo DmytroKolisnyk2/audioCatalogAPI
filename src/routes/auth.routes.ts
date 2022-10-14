@@ -15,7 +15,9 @@ export const initAuthRoutes = (
   router.get(
     apiPath(path, AuthRoutes.CURRENT),
     auth,
-    wrap<Empty, UserDto, IAuth>((req) => authService.current(req as unknown as IAuth)),
+    wrap<Empty, UserDto, IAuth>((req) =>
+      authService.current(req as unknown as IAuth),
+    ),
   );
   router.get(
     apiPath(path, AuthRoutes.LOGOUT),
