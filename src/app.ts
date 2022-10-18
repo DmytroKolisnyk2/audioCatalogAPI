@@ -8,6 +8,7 @@ import { initRoutes } from '@routes';
 import { initServices } from '@services';
 import { initRepositories } from '@repositories';
 import swagger from 'swagger-ui-express';
+import { ApiRoutes } from '@enums';
 import swaggerDocs from './docs/api.json';
 import './db/config/jwtStrategy';
 
@@ -22,7 +23,7 @@ app
   .use(express.json())
   .use(localizationMiddleware)
   .use(routes)
-  .use('/docs', swagger.serve, swagger.setup(swaggerDocs))
+  .use(ApiRoutes.DOCS, swagger.serve, swagger.setup(swaggerDocs))
   .use(errorHandler);
 
 export { app };

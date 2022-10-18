@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Audio Catalog API",
-    "description": "This is Audio Catalog app API\n\nRepositories:\n- [Github](https://github.com/BevzykSoi/audio-catalog-db)",
+    "description": "This is Audio Catalog app API\n\nRepositories:\n- [Github](https://github.com/DmytroKolisnyk2/audioCatalogAPI)",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -166,6 +166,43 @@
         }
       }
     },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/users/{userId}": {
       "get": {
         "tags": [
@@ -200,6 +237,177 @@
             "description": "User not found"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user info",
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ],
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string"
+                  },
+                  "theme": {
+                    "type": "string"
+                  },
+                  "saveHistory": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{userId}/avatar": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user avatar",
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ],
+        "operationId": "updateUserAvatar",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{userId}/banner": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user banner",
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ],
+        "operationId": "updateUserBanner",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "banner": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
       }
     },
     "/users/{userId}/audios": {
@@ -209,6 +417,84 @@
         ],
         "summary": "Get audios uploaded by user",
         "operationId": "getUserAudios",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Audio"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{userId}/likes": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get audios liked by user",
+        "operationId": "getUserLikes",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Audio"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{userId}/history": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get audios listened by user",
+        "operationId": "getUserHistory",
         "parameters": [
           {
             "name": "userId",
@@ -324,7 +610,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Follow user",
+        "summary": "Follow or unfollow user",
         "operationId": "followUser",
         "security": [
           {
@@ -360,53 +646,12 @@
         }
       }
     },
-    "/users/{userId}/unfollow": {
-      "patch": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Unfollow user",
-        "operationId": "unfollowUser",
-        "security": [
-          {
-            "jwt_auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "User id to unfollow",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Updated following user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      }
-    },
     "/audios": {
       "get": {
         "tags": [
           "Audios"
         ],
-        "summary": "Get all audios",
+        "summary": "Search all audios",
         "operationId": "getAudios",
         "parameters": [
           {
@@ -415,6 +660,15 @@
             "description": "Search query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Include tags",
+            "schema": {
+              "type": "string",
+              "example": "rock, pop"
             }
           }
         ],
@@ -481,6 +735,54 @@
         }
       }
     },
+    "/audios/top": {
+      "get": {
+        "tags": [
+          "Audios"
+        ],
+        "summary": "Get top liked audios",
+        "operationId": "getTopLikedAudios",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Audio"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/audios/new": {
+      "get": {
+        "tags": [
+          "Audios"
+        ],
+        "summary": "Get new audios",
+        "operationId": "getNewdAudios",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Audio"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/audios/{audioId}": {
       "get": {
         "summary": "Get audio info",
@@ -516,7 +818,7 @@
     },
     "/audios/{audioId}/like": {
       "patch": {
-        "summary": "Like audio",
+        "summary": "Toggle audio like",
         "operationId": "likeAudio",
         "tags": [
           "Audios"
@@ -570,6 +872,61 @@
             "type": "string",
             "format": "date-time",
             "example": "2013-06-23T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2013-06-23T00:00:00.000Z"
+          },
+          "username": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Profile"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2013-06-23T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2013-06-23T00:00:00.000Z"
+          },
+          "language": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
+          "bannerUrl": {
+            "type": "string"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "saveHistory": {
+            "type": "boolean"
           }
         }
       },
@@ -585,6 +942,44 @@
             "type": "string",
             "format": "date-time",
             "example": "2013-06-23T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2013-06-23T00:00:00.000Z"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          },
+          "coverUrl": {
+            "type": "string"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "usersLiked": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "listenCount": {
+            "type": "number",
+            "format": "integer"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "duration": {
+            "type": "number",
+            "format": "integer"
           }
         }
       }
