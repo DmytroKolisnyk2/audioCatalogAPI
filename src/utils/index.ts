@@ -5,11 +5,7 @@ export {
   audioPath,
   staticFolderPath,
   storage,
-  fileImageFilter,
-  fileAudioFilter,
   upload,
-  // uploadAudio,
-  // uploadImage,
 } from './multer-config';
 export * from './cloudinary-config';
 export * from './dotenv';

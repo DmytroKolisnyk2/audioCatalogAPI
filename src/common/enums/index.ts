@@ -8,3 +8,4 @@ export { Genres } from './genres';
 export { Languages } from './languages';
 export { Themes } from './themes';
 export { ImageExtension, AudioExtension } from './files';
+export { FilesFields } from './files-fields';

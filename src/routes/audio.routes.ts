@@ -4,12 +4,11 @@ import {
   auth,
   JoiValidationMiddleware,
   parseGenresMiddleware,
+  uploadAudioFilesMiddleware,
 } from '@middlewares';
 import type { Services } from '@services';
 import type { IAudio } from '@types';
-// import { uploadAudio, uploadImage } from '@utils';
 import { Router } from 'express';
-import { upload } from 'utils/multer-config';
 import { audioSchema } from 'validation/audio.schema';
 
 export const initAudioRoutes = (
@@ -24,12 +23,7 @@ export const initAudioRoutes = (
   router.post(
     path,
     auth,
-    upload.fields([
-      { name: 'cover', maxCount: 1 },
-      { name: 'audio', maxCount: 1 },
-    ]),
-    // uploadAudio.single('audio'),
-    // uploadImage.single('cover'),
+    uploadAudioFilesMiddleware,
     parseGenresMiddleware,
     JoiValidationMiddleware(audioSchema),
     wrap<Empty, IAudio>(async (req) => audioService.create(req)),

@@ -3,6 +3,10 @@
     "shortName": "The name of the song is too short!",
     "longName": "The name of the song is too long!",
     "nameRequired": "The name of the song is required!",
-    "genresFormat": "Genres should be in a string format, for example 'Rock, Jazz'"
+    "genresFormat": "Genres should be in a string format, for example 'Rock, Jazz'",
+    "unsupportedCoverFormat": "Unsupported photo extension",
+    "unsupportedFormat": "Unsupported audio extension",
+    "audioSize": "Too large audio size",
+    "coverSize": "Too large image size"
   }
 }

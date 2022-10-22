@@ -6,7 +6,7 @@ class WrongAudioFormatError extends ErrorMessage {
   constructor(t: TFunction) {
     super({
       status: StatusCode.BAD_REQUEST,
-      message: t('auth:validation.userExist'),
+      message: t('audio:validation.unsupportedFormat'),
     });
   }
 }

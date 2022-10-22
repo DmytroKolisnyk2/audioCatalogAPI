@@ -1,3 +1,4 @@
+import { FilesFields } from '@enums';
 import type { AudioRepository } from '@repositories';
 import type { IAudio } from '@types';
 import type { Request } from 'express';
@@ -17,14 +18,12 @@ export class AudioService {
   }
 
   async create(req: Request<Empty, IAudio>): Promise<IAudio> {
-    console.log(req.file);
-    console.log(req.files);
     const audioUrl = await this._cloudinaryService
-      .uploadAudio(req.files['audio'][0].path)
+      .uploadAudio(req.files[FilesFields.AUDIO][0].path)
       .then((file) => file.secure_url);
 
     const coverUrl = await this._cloudinaryService
-      .uploadImage(req.files['cover'][0].path)
+      .uploadImage(req.files[FilesFields.COVER][0].path)
       .then((file) => file.secure_url);
 
     const audio = await this._audioRepository.create({

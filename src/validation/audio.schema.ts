@@ -16,6 +16,7 @@ export const audioSchema = (t: TFunction): Schema =>
         'string.max': t('audio:validation.longName'),
         'any.required': t('audio:validation.nameRequired'),
       }),
+    duration: Joi.number().required().min(0),
     genres: Joi.array()
       .items(Joi.string().valid(...Object.values(Genres)))
       .required(),

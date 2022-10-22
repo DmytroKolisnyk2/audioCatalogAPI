@@ -1,8 +1,8 @@
 import type { Request } from 'express';
 import type { FileFilterCallback } from 'multer';
-import { ImageExtension, AudioExtension } from '@enums';
+import { ImageExtension, AudioExtension, FilesFields } from '@enums';
 import multer from 'multer';
-import { WrongAudioFormatError, WrongImageFormatError } from 'error';
+import { enumIncludes } from '@helpers';
 import path from 'path';
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
@@ -32,43 +32,24 @@ export const storage = multer.diskStorage({
   },
 });
 
-export const fileImageFilter = (
-  req: Request,
+export const fileFilter = (
+  _req: Request,
   file: Express.Multer.File,
   callback: FileFilterCallback,
 ): void => {
-  if (file.mimetype in ImageExtension) {
+  if (
+    (file.fieldname === FilesFields.AUDIO &&
+      enumIncludes(AudioExtension, file.mimetype)) ||
+    (file.fieldname === FilesFields.COVER &&
+      enumIncludes(ImageExtension, file.mimetype))
+  ) {
     callback(null, true);
   } else {
     callback(null, false);
-    callback(new WrongImageFormatError(req.t));
   }
 };
-export const fileAudioFilter = (
-  req: Request,
-  file: Express.Multer.File,
-  callback: FileFilterCallback,
-): void => {
-  if (file.mimetype in AudioExtension) {
-    callback(null, true);
-  } else {
-    callback(null, false);
-    callback(new WrongAudioFormatError(req.t));
-  }
-};
-
-// export const uploadImage = multer({
-//   storage,
-//   fileFilter: fileImageFilter,
-//   limits: { fileSize: 999999999999999 },
-// });
-
-// export const uploadAudio = multer({
-//   storage,
-//   fileFilter: fileAudioFilter,
-//   limits: { fileSize: 999999999999999 },
-// });
 
 export const upload = multer({
   storage,
+  fileFilter,
 });

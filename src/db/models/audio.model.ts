@@ -35,6 +35,11 @@ const audioSchema = new Schema<IAudio>(
       min: 0,
       default: 0,
     },
+    duration: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
     playlists: [{ type: Schema.Types.ObjectId, ref: Refs.PLAYLIST }],
     genres: [
       {

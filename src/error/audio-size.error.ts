@@ -2,13 +2,13 @@ import { StatusCode } from '@enums';
 import { ErrorMessage } from '@utils';
 import type { TFunction } from 'i18next';
 
-class WrongImageFormatError extends ErrorMessage {
+class AudioSizeError extends ErrorMessage {
   constructor(t: TFunction) {
     super({
       status: StatusCode.BAD_REQUEST,
-      message: t('audio:validation.unsupportedCoverFormat'),
+      message: t('audio:validation.audioSize'),
     });
   }
 }
 
-export { WrongImageFormatError };
+export { AudioSizeError };
