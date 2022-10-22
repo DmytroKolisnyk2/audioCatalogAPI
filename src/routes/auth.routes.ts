@@ -5,7 +5,6 @@ import { JoiValidationMiddleware, auth } from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
 import { authSchema } from '@validation';
-import type { IAuth, UserDto } from '@types';
 
 export const initAuthRoutes = (
   { authService }: Services,
@@ -15,13 +14,11 @@ export const initAuthRoutes = (
   router.get(
     apiPath(path, AuthRoutes.CURRENT),
     auth,
-    wrap<Empty, UserDto, IAuth>((req) =>
-      authService.current(req as unknown as IAuth),
-    ),
+    wrap((req) => authService.current(req)),
   );
-  router.get(
+  router.post(
     apiPath(path, AuthRoutes.LOGOUT),
-    wrap(() => Promise.resolve('Logout')),
+    wrap(() => Promise.resolve()),
   );
   router.post(
     apiPath(path, AuthRoutes.LOGIN),

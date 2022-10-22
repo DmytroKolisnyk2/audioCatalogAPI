@@ -9,4 +9,5 @@ export interface IAudio {
   listenCount: number;
   playlists: Types.ObjectId[];
   genres: string[];
+  duration: number;
 }

@@ -1,4 +1,4 @@
-import { Models, Refs } from '@enums';
+import { Refs } from '@enums';
 import type { IUser } from '@types';
 import { model, Schema } from 'mongoose';
 
@@ -54,4 +54,4 @@ const userSchema = new Schema<IUser>(
   },
 );
 
-export const userModel = model<IUser>(Models.USER, userSchema);
+export const userModel = model<IUser>(Refs.USER, userSchema);

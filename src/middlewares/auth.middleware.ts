@@ -1,9 +1,8 @@
 import passport from 'passport';
-import type { NextFunction, Response } from 'express';
-import type { IAuth } from '@types';
+import type { NextFunction, Request, Response } from 'express';
 import { Unauthorized } from 'error';
 
-export const auth = (req: IAuth, res: Response, next: NextFunction): void => {
+export const auth = (req: Request, res: Response, next: NextFunction): void => {
   passport.authenticate(
     'jwt',
     {
