@@ -1,5 +1,5 @@
 import { ProfileConfig } from '@constants';
-import { Models, Languages, Themes, Refs, Genres } from '@enums';
+import { Languages, Themes, Refs, Genres } from '@enums';
 import type { IProfile } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -34,7 +34,7 @@ const profileSchema = new Schema<IProfile>(
     },
     genres: [
       {
-        type: Genres,
+        type: String,
         required: true,
         enum: Genres,
       },
@@ -50,4 +50,4 @@ const profileSchema = new Schema<IProfile>(
   },
 );
 
-export const testModel: Model<IProfile> = model(Models.USER, profileSchema);
+export const profileModel: Model<IProfile> = model(Refs.PROFILE, profileSchema);

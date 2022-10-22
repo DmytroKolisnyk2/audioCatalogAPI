@@ -1,5 +1,5 @@
 import { AudioConfig } from '@constants';
-import { Models, Refs } from '@enums';
+import { Genres, Refs } from '@enums';
 import type { IAudio } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -21,6 +21,7 @@ const audioSchema = new Schema<IAudio>(
     },
     author: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: Refs.USER,
     },
     usersLiked: [
@@ -39,7 +40,7 @@ const audioSchema = new Schema<IAudio>(
       {
         type: String,
         required: true,
-        enum: '',
+        enum: Genres,
       },
     ],
   },
@@ -49,4 +50,4 @@ const audioSchema = new Schema<IAudio>(
   },
 );
 
-export const testModel: Model<IAudio> = model(Models.USER, audioSchema);
+export const audioModel: Model<IAudio> = model(Refs.AUDIO, audioSchema);

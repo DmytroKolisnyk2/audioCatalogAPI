@@ -1,11 +1,12 @@
 import type { Request } from 'express';
 import type { FileFilterCallback } from 'multer';
-import { imageExtension, audioExtension } from '@enums';
+import { ImageExtension, AudioExtension } from '@enums';
 import multer from 'multer';
+import { WrongAudioFormatError, WrongImageFormatError } from 'error';
+import path from 'path';
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
-import path from 'path';
 
 export const imagesPath = path.join(process.cwd(), 'public/images');
 export const audioPath = path.join(process.cwd(), 'public/audio');
@@ -14,15 +15,15 @@ export const staticFolderPath = path.join(process.cwd(), 'public');
 
 export const storage = multer.diskStorage({
   destination: (
-    request: Request,
-    file: Express.Multer.File,
+    _request: Request,
+    _file: Express.Multer.File,
     callback: DestinationCallback,
   ): void => {
     callback(null, uploadsPath);
   },
 
   filename: (
-    req: Request,
+    _req: Request,
     file: Express.Multer.File,
     callback: FileNameCallback,
   ): void => {
@@ -32,27 +33,41 @@ export const storage = multer.diskStorage({
 });
 
 export const fileImageFilter = (
-  request: Request,
+  req: Request,
   file: Express.Multer.File,
   callback: FileFilterCallback,
 ): void => {
-  if (file.mimetype in imageExtension) {
+  if (file.mimetype in ImageExtension) {
     callback(null, true);
   } else {
     callback(null, false);
+    callback(new WrongImageFormatError(req.t));
   }
 };
 export const fileAudioFilter = (
-  request: Request,
+  req: Request,
   file: Express.Multer.File,
   callback: FileFilterCallback,
 ): void => {
-  if (file.mimetype in audioExtension) {
+  if (file.mimetype in AudioExtension) {
     callback(null, true);
   } else {
     callback(null, false);
+    callback(new WrongAudioFormatError(req.t));
   }
 };
+
+// export const uploadImage = multer({
+//   storage,
+//   fileFilter: fileImageFilter,
+//   limits: { fileSize: 999999999999999 },
+// });
+
+// export const uploadAudio = multer({
+//   storage,
+//   fileFilter: fileAudioFilter,
+//   limits: { fileSize: 999999999999999 },
+// });
 
 export const upload = multer({
   storage,

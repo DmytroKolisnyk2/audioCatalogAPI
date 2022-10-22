@@ -1,4 +1,4 @@
-import { Models, Refs, Genres } from '@enums';
+import { Refs, Genres } from '@enums';
 import type { IPlayList } from '@types';
 import type { Model } from 'mongoose';
 import { model, Schema } from 'mongoose';
@@ -22,7 +22,7 @@ const playlistSchema = new Schema<IPlayList>(
     },
     genres: [
       {
-        type: Genres,
+        type: String,
         required: true,
         enum: Genres,
       },
@@ -34,4 +34,7 @@ const playlistSchema = new Schema<IPlayList>(
   },
 );
 
-export const testModel: Model<IPlayList> = model(Models.USER, playlistSchema);
+export const playlistModel: Model<IPlayList> = model(
+  Refs.PLAYLIST,
+  playlistSchema,
+);
