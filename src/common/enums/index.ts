@@ -1,3 +1,4 @@
+export { UsersRoutes } from './users-routes';
 export { StatusCode } from './statuses';
 export { ApiRoutes } from './api-routes';
 export { AuthRoutes } from './auth-routes';

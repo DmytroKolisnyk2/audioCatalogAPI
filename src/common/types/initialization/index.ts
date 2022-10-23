@@ -1,18 +1,20 @@
 import type {
-  AudioRepository,
   TestRepository,
   UserRepository,
+  AudioRepository,
 } from '@repositories';
 import type {
   TestService,
   AuthService,
-  AudioService,
+  UsersService,
   CloudinaryService,
+  AudioService,
 } from '@services';
 
 export type ServicesInit = {
   testService: TestService;
   authService: AuthService;
+  usersService: UsersService;
   audioService: AudioService;
   cloudinaryService: CloudinaryService;
 };

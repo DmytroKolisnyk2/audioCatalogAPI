@@ -28,9 +28,10 @@ export class AuthService {
       _id: newUser._id,
     };
     const token = generate(payload);
+    const resUser = await this._userRepository.getById(newUser._id);
 
     return {
-      user: newUser,
+      user: resUser,
       token,
     };
   }
@@ -54,9 +55,10 @@ export class AuthService {
       _id: user._id,
     };
     const token = generate(payload);
+    const resUser = await this._userRepository.getById(user._id);
 
     return {
-      user: user,
+      user: resUser,
       token,
     };
   }
