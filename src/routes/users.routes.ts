@@ -4,7 +4,10 @@ import { apiPath, wrap } from '@helpers';
 import type { Services } from '@services';
 import { Router } from 'express';
 
-export const initUsersRoutes = ({usersService}: Services, path: ApiRoutes): Router => {
+export const initUsersRoutes = (
+  { usersService }: Services,
+  path: ApiRoutes,
+): Router => {
   const router = Router();
   router.get(
     apiPath(path, UsersRoutes.BY_ID),
