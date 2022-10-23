@@ -35,3 +35,7 @@ yarn-error.log*
 
 # logs
 *.log
+
+# uploads
+/public/uploads/*
+!/public/uploads/.gitkeep

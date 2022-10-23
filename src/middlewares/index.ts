@@ -3,3 +3,5 @@ export { errorHandler } from './error-handler.middleware';
 export { JoiValidationMiddleware } from './joi-schema-validation.middleware';
 export { localizationMiddleware } from './localization.middleware';
 export { auth } from './auth.middleware';
+export { parseGenresMiddleware } from './parse-genres.middleware';
+export { uploadAudioFilesMiddleware } from './upload-audio-files.middleware';

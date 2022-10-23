@@ -1,8 +1,8 @@
 import type { UserRepository } from '@repositories';
 import type { Request } from 'express';
 import { generate } from '@utils';
-import { UserExistError, UserNotExistError, InValidPassword } from 'error';
-import type { UserDto, IAuth } from '@types';
+import { UserExistError, UserNotExistError, InvalidPassword } from 'error';
+import type { UserDto } from '@types';
 
 export class AuthService {
   private _userRepository: UserRepository;
@@ -11,7 +11,7 @@ export class AuthService {
     this._userRepository = userRepository;
   }
 
-  register = async (req: Request): Promise<UserDto> => {
+  async register(req: Request): Promise<UserDto> {
     const { username, password } = req.body;
     const existingUser = await this._userRepository.getByUsername(username);
     if (existingUser) {
@@ -34,9 +34,9 @@ export class AuthService {
       user: resUser,
       token,
     };
-  };
+  }
 
-  login = async (req: Request): Promise<UserDto> => {
+  async login(req: Request): Promise<UserDto> {
     const { username, password } = req.body;
     const user = await this._userRepository.getByUsername(username);
     if (!user) {
@@ -48,7 +48,7 @@ export class AuthService {
     );
 
     if (!validPassword) {
-      throw new InValidPassword(req.t);
+      throw new InvalidPassword(req.t);
     }
     const payload = {
       username: user.username,
@@ -61,9 +61,9 @@ export class AuthService {
       user: resUser,
       token,
     };
-  };
+  }
 
-  current = async (req: IAuth): Promise<UserDto> => {
+  async current(req: Request): Promise<UserDto> {
     const payload = {
       username: req.user.username,
       _id: req.user._id,
@@ -74,5 +74,5 @@ export class AuthService {
       user: req.user,
       token,
     };
-  };
+  }
 }
