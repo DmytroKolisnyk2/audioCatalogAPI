@@ -5,6 +5,7 @@ export interface IUser {
   username: string;
   password: string;
   followers?: Types.ObjectId[];
+  following?: Types.ObjectId[];
   likedAudios?: Types.ObjectId[];
   createdAudios?: Types.ObjectId[];
   profile?: Types.ObjectId;

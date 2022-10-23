@@ -34,7 +34,33 @@ export class UserRepository {
 
   async getUserAudios(userId: Types.ObjectId | string): Promise<IAudio[]> {
     return await this._dbClient
-      .findById(userId, { createdAudios: 1 })
+      .findById(userId, { createdAudios: 1, _id: 0 })
       .populate({ path: 'createdAudios' });
+  }
+
+  async getUserLikedAudios(userId: Types.ObjectId | string): Promise<IAudio[]> {
+    return await this._dbClient
+      .findById(userId, { likedAudios: 1, _id: 0 })
+      .populate({ path: 'likedAudios' });
+  }
+
+  async getUserHistoryAudios(
+    userId: Types.ObjectId | string,
+  ): Promise<IAudio[]> {
+    return await this._dbClient
+      .findById(userId, { history: 1, _id: 0 })
+      .populate({ path: 'history' });
+  }
+
+  async getUserFollowing(userId: Types.ObjectId | string): Promise<IUser[]> {
+    return await this._dbClient
+      .findById(userId, { following: 1, _id: 0 })
+      .populate({ path: 'following' });
+  }
+
+  async getUserFollowers(userId: Types.ObjectId | string): Promise<IUser[]> {
+    return await this._dbClient
+      .findById(userId, { followers: 1, _id: 0 })
+      .populate({ path: 'followers' });
   }
 }

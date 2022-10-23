@@ -19,19 +19,19 @@ export const initUsersRoutes = (
   );
   router.get(
     apiPath(path, UsersRoutes.FOLLOWERS),
-    wrap(() => Promise.resolve('Logout')),
+    wrap((req) => usersService.getUserFollowers(req)),
   );
   router.get(
     apiPath(path, UsersRoutes.FOLLOWING),
-    wrap(() => Promise.resolve('Logout')),
+    wrap((req) => usersService.getUserFollowing(req)),
   );
   router.get(
     apiPath(path, UsersRoutes.HISTORY),
-    wrap(() => Promise.resolve('Logout')),
+    wrap((req) => usersService.getUserHistoryAudios(req)),
   );
   router.get(
     apiPath(path, UsersRoutes.LIKES),
-    wrap(() => Promise.resolve('Logout')),
+    wrap((req) => usersService.getUserLikedAudios(req)),
   );
 
   return router;

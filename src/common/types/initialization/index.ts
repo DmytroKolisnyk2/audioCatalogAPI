@@ -1,4 +1,8 @@
-import type { TestRepository, UserRepository, AudioRepository } from '@repositories';
+import type {
+  TestRepository,
+  UserRepository,
+  AudioRepository,
+} from '@repositories';
 import type {
   TestService,
   AuthService,

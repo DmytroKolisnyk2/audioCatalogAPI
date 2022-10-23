@@ -19,6 +19,12 @@ const userSchema = new Schema<IUser>(
         ref: Refs.USER,
       },
     ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: Refs.USER,
+      },
+    ],
     likedAudios: [
       {
         type: Schema.Types.ObjectId,
