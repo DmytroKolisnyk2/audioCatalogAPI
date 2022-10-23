@@ -1,14 +1,24 @@
-import type { IAudio } from '@types';
+import type { IAudio, IUser } from '@types';
 import type { Model } from 'mongoose';
 
 export class AudioRepository {
-  private _dbClient: Model<IAudio>;
+  private _dbAudio: Model<IAudio>;
 
-  constructor(audioRepository: Model<IAudio>) {
-    this._dbClient = audioRepository;
+  private _dbUsers: Model<IUser>;
+
+  constructor(audioRepository: Model<IAudio>, userRepository: Model<IUser>) {
+    this._dbAudio = audioRepository;
+    this._dbUsers = userRepository;
   }
 
   async create(body: IAudio): Promise<IAudio> {
-    return await this._dbClient.create(body);
+    const audio = await this._dbAudio.create(body);
+    await this._dbUsers.findByIdAndUpdate(audio.author, {
+      $addToSet: {
+        createdAudios: audio.id,
+      },
+    });
+
+    return audio;
   }
 }
