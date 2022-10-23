@@ -1,4 +1,4 @@
-import type { IUser } from '@types';
+import type { IUser, IAudio } from '@types';
 import type { Model, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -9,8 +9,8 @@ export class UserRepository {
     this._dbClient = user;
   }
 
-  async getById(userId: Types.ObjectId): Promise<IUser> {
-    return await this._dbClient.findById(userId);
+  async getById(userId: Types.ObjectId | string): Promise<IUser> {
+    return await this._dbClient.findById(userId, { password: 0 });
   }
 
   async getByUsername(username: string): Promise<IUser> {
@@ -30,5 +30,11 @@ export class UserRepository {
 
   async createUser(body: IUser, password: string): Promise<IUser> {
     return await this._dbClient.create({ ...body, password });
+  }
+
+  async getUserAudios(userId: Types.ObjectId | string): Promise<IAudio[]> {
+    return await this._dbClient
+      .findById(userId, { createdAudios: 1 })
+      .populate({ path: 'createdAudios' });
   }
 }

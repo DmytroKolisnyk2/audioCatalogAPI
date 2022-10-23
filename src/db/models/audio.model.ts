@@ -49,4 +49,4 @@ const audioSchema = new Schema<IAudio>(
   },
 );
 
-export const testModel: Model<IAudio> = model(Models.USER, audioSchema);
+export const audioModel: Model<IAudio> = model(Models.AUDIO, audioSchema);

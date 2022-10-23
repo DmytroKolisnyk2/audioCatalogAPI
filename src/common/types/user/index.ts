@@ -16,7 +16,7 @@ export interface IUser {
 
 export interface UserDto {
   user: IUser;
-  token: string;
+  token?: string;
 }
 
 export interface IAuth extends Request {
