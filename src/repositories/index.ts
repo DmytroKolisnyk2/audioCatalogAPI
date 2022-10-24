@@ -7,7 +7,7 @@ import { AudioRepository } from './audio.repository';
 export const initRepositories = (): RepositoriesInit => ({
   testRepository: new TestRepository(testModel),
   userRepository: new UserRepository(userModel),
-  audioRepository: new AudioRepository(audioModel),
+  audioRepository: new AudioRepository(audioModel, userModel),
 });
 
 export type Repositories = ReturnType<typeof initRepositories>;

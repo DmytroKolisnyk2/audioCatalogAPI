@@ -1,8 +1,10 @@
-import { ApiRoutes, AudioRoutes } from '@enums';
+import type { ApiRoutes } from '@enums';
+import { AudioRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
 import {
   auth,
   JoiValidationMiddleware,
+  nonStringAuth,
   parseGenresMiddleware,
   uploadAudioFilesMiddleware,
 } from '@middlewares';
@@ -27,6 +29,9 @@ export const initAudioRoutes = (
   router.get(
     apiPath(path, AudioRoutes.AUDIOS_TOP),
     wrap<Empty, IAudio[]>(async () => audioService.getTop()),
+    apiPath(path, AudioRoutes.GET_BY_ID),
+    nonStringAuth,
+    wrap<Empty, IAudio>(async (req) => audioService.getById(req)),
   );
   router.post(
     path,

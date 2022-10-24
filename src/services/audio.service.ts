@@ -1,6 +1,7 @@
 import { FilesFields } from '@enums';
 import type { AudioRepository } from '@repositories';
 import type { IAudio } from '@types';
+import { AudioNotFoundError } from 'error';
 import type { Request } from 'express';
 import type { CloudinaryService } from './cloudinary.service';
 
@@ -39,10 +40,25 @@ export class AudioService {
   getAudios = async (): Promise<IAudio[]> => {
     return await this._audioRepository.getAll();
   };
+  
   getNew = async (): Promise<IAudio[]> => {
     return await this._audioRepository.getNew();
   };
+  
   getTop = async (): Promise<IAudio[]> => {
     return await this._audioRepository.getTop();
   };
+  
+  async getById(req: Request<Empty, IAudio>): Promise<IAudio> {
+    const audio = req.user._id
+      ? await this._audioRepository.getByIdWithHistory(
+          req.params.id,
+          req.user._id,
+        )
+      : await this._audioRepository.getById(req.params.id);
+
+    if (!audio) throw new AudioNotFoundError(req.t);
+
+    return audio;
+  }
 }

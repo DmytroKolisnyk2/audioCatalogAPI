@@ -3,4 +3,5 @@ export enum ApiRoutes {
   AUTHORIZATION = '/auth',
   TEST = '/test',
   DOCS = '/docs',
+  USERS = '/users',
 }
