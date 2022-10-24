@@ -3,4 +3,5 @@ export enum AudioRoutes {
   AUDIOS_NEW = '/new',
   AUDIOS_TOP = '/top',
   GET_BY_ID = '/:id',
+  LIKE = '/:id/like',
 }

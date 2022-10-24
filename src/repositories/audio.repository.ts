@@ -11,17 +11,6 @@ export class AudioRepository {
     this._dbUsers = userRepository;
   }
 
-  async create(body: IAudio): Promise<IAudio> {
-    const audio = await this._dbAudio.create(body);
-    await this._dbUsers.findByIdAndUpdate(audio.author, {
-      $addToSet: {
-        createdAudios: audio.id,
-      },
-    });
-
-    return audio;
-  }
-
   async getById(id: string): Promise<IAudio> {
     const audio = await this._dbAudio.findByIdAndUpdate(id, {
       $inc: { listenCount: 1 },
@@ -51,5 +40,59 @@ export class AudioRepository {
 
   async getTop(): Promise<IAudio[]> {
     return await this._dbAudio.find().sort({ listenCount: -1 });
+  }
+
+  async create(body: IAudio): Promise<IAudio> {
+    const audio = await this._dbAudio.create(body);
+    await this._dbUsers.findByIdAndUpdate(audio.author, {
+      $addToSet: {
+        createdAudios: audio.id,
+      },
+    });
+
+    return audio;
+  }
+
+  async toggleLike(audioId: string, userId: Types.ObjectId): Promise<IAudio> {
+    const audioLiked = await this._dbAudio.exists({
+      _id: audioId,
+      usersLiked: userId,
+    });
+    let patchedAudio;
+    if (audioLiked) {
+      await this._dbUsers.findByIdAndUpdate(userId, {
+        $pull: {
+          likedAudios: audioId,
+        },
+      });
+      patchedAudio = await this._dbAudio.findByIdAndUpdate(
+        audioId,
+        {
+          $pull: {
+            usersLiked: userId,
+          },
+        },
+        { new: true },
+      );
+    }
+
+    if (!audioLiked) {
+      await this._dbUsers.findByIdAndUpdate(userId, {
+        $addToSet: {
+          likedAudios: audioId,
+        },
+      });
+      patchedAudio = await this._dbAudio.findByIdAndUpdate(
+        audioId,
+        {
+          $addToSet: {
+            usersLiked: userId,
+          },
+        },
+        { new: true },
+      );
+    }
+
+    return patchedAudio;
   }
 }
