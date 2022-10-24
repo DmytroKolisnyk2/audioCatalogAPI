@@ -44,5 +44,11 @@ export const initAudioRoutes = (
     wrap<Empty, IAudio>((req) => audioService.create(req)),
   );
 
+  router.patch(
+    apiPath(path, AudioRoutes.LIKE),
+    auth,
+    wrap<Empty, IAudio>((req) => audioService.updateLike(req)),
+  );
+
   return router;
 };
