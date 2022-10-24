@@ -41,15 +41,15 @@ export class AudioRepository {
     return audio;
   }
 
-  getAll = async (): Promise<IAudio[]> => {
-    return await this._dbClient.find();
-  };
+  async getAll(): Promise<IAudio[]> {
+    return await this._dbAudio.find();
+  }
 
-  getNew = async (): Promise<IAudio[]> => {
-    return await this._dbClient.find().sort({ createdAt: -1, updatedAt: -1 });
-  };
+  async getNew(): Promise<IAudio[]> {
+    return await this._dbAudio.find().sort({ createdAt: -1, updatedAt: -1 });
+  }
 
-  getTop = async (): Promise<IAudio[]> => {
-    return await this._dbClient.find().sort({ listenCount: -1 });
-  };
+  async getTop(): Promise<IAudio[]> {
+    return await this._dbAudio.find().sort({ listenCount: -1 });
+  }
 }

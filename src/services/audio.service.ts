@@ -37,17 +37,17 @@ export class AudioService {
     return audio;
   }
 
-  getAudios = async (): Promise<IAudio[]> => {
+  async getAudios(): Promise<IAudio[]> {
     return await this._audioRepository.getAll();
-  };
+  }
 
-  getNew = async (): Promise<IAudio[]> => {
+  async getNew(): Promise<IAudio[]> {
     return await this._audioRepository.getNew();
-  };
+  }
 
-  getTop = async (): Promise<IAudio[]> => {
+  async getTop(): Promise<IAudio[]> {
     return await this._audioRepository.getTop();
-  };
+  }
 
   async getById(req: Request<Empty, IAudio>): Promise<IAudio> {
     const audio = req.user._id
