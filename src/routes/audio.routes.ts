@@ -19,9 +19,21 @@ export const initAudioRoutes = (
 ): Router => {
   const router = Router();
   router.get(
+    path,
+    wrap<Empty, IAudio[]>(() => audioService.getAudios()),
+  );
+  router.get(
+    apiPath(path, AudioRoutes.AUDIOS_NEW),
+    wrap<Empty, IAudio[]>(() => audioService.getNew()),
+  );
+  router.get(
+    apiPath(path, AudioRoutes.AUDIOS_TOP),
+    wrap<Empty, IAudio[]>(() => audioService.getTop()),
+  );
+  router.get(
     apiPath(path, AudioRoutes.GET_BY_ID),
     nonStringAuth,
-    wrap<Empty, IAudio>(async (req) => audioService.getById(req)),
+    wrap<Empty, IAudio>((req) => audioService.getById(req)),
   );
   router.post(
     path,
@@ -29,7 +41,7 @@ export const initAudioRoutes = (
     uploadAudioFilesMiddleware,
     parseGenresMiddleware,
     JoiValidationMiddleware(audioSchema),
-    wrap<Empty, IAudio>(async (req) => audioService.create(req)),
+    wrap<Empty, IAudio>((req) => audioService.create(req)),
   );
 
   return router;

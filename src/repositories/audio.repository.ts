@@ -40,4 +40,16 @@ export class AudioRepository {
 
     return audio;
   }
+
+  async getAll(): Promise<IAudio[]> {
+    return await this._dbAudio.find();
+  }
+
+  async getNew(): Promise<IAudio[]> {
+    return await this._dbAudio.find().sort({ createdAt: -1, updatedAt: -1 });
+  }
+
+  async getTop(): Promise<IAudio[]> {
+    return await this._dbAudio.find().sort({ listenCount: -1 });
+  }
 }
