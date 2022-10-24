@@ -1,5 +1,5 @@
-import type { ApiRoutes } from '@enums';
-import { wrap } from '@helpers';
+import { ApiRoutes, AudioRoutes } from '@enums';
+import { apiPath, wrap } from '@helpers';
 import {
   auth,
   JoiValidationMiddleware,
@@ -18,7 +18,15 @@ export const initAudioRoutes = (
   const router = Router();
   router.get(
     path,
-    wrap(() => Promise.resolve('Get audios')),
+    wrap<Empty, IAudio[]>(async () => audioService.getAudios()),
+  );
+  router.get(
+    apiPath(path, AudioRoutes.AUDIOS_NEW),
+    wrap<Empty, IAudio[]>(async () => audioService.getNew()),
+  );
+  router.get(
+    apiPath(path, AudioRoutes.AUDIOS_TOP),
+    wrap<Empty, IAudio[]>(async () => audioService.getTop()),
   );
   router.post(
     path,

@@ -11,4 +11,16 @@ export class AudioRepository {
   async create(body: IAudio): Promise<IAudio> {
     return await this._dbClient.create(body);
   }
+
+  getAll = async (): Promise<IAudio[]> => {
+    return await this._dbClient.find();
+  };
+
+  getNew = async (): Promise<IAudio[]> => {
+    return await this._dbClient.find().sort({ createdAt: -1, updatedAt: -1 });
+  };
+
+  getTop = async (): Promise<IAudio[]> => {
+    return await this._dbClient.find().sort({ listenCount: -1 });
+  };
 }

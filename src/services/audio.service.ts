@@ -35,4 +35,14 @@ export class AudioService {
 
     return audio;
   }
+
+  getAudios = async (): Promise<IAudio[]> => {
+    return await this._audioRepository.getAll();
+  };
+  getNew = async (): Promise<IAudio[]> => {
+    return await this._audioRepository.getNew();
+  };
+  getTop = async (): Promise<IAudio[]> => {
+    return await this._audioRepository.getTop();
+  };
 }
