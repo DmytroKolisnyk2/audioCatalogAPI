@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon -r ts-node --files ./src/server.ts",
     "build": "tsc",
-    "serve": "node build/server.js",
+    "serve": "node -r ts-node/register/transpile-only -r tsconfig-paths/register build/server.js",
     "prettier:check": "prettier --check \"*/**/*.ts\" --loglevel=warn",
     "prettier:fix": "prettier --write \"*/**/*.ts\" --loglevel=warn",
     "lint": "eslint . --ext .ts",
