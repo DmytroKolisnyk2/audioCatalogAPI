@@ -1,1 +1,3 @@
-export enum AudioRoutes {}
+export enum AudioRoutes {
+  GET_BY_ID = '/:id',
+}
