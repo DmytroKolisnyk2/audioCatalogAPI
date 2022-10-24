@@ -29,6 +29,8 @@ export const initAudioRoutes = (
   router.get(
     apiPath(path, AudioRoutes.AUDIOS_TOP),
     wrap<Empty, IAudio[]>(async () => audioService.getTop()),
+  );
+  router.get(
     apiPath(path, AudioRoutes.GET_BY_ID),
     nonStringAuth,
     wrap<Empty, IAudio>(async (req) => audioService.getById(req)),
