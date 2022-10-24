@@ -1,5 +1,5 @@
 import type { IAudio, IUser } from '@types';
-import type { Model } from 'mongoose';
+import type { Model, Types } from 'mongoose';
 
 export class AudioRepository {
   private _dbAudio: Model<IAudio>;
@@ -18,6 +18,25 @@ export class AudioRepository {
         createdAudios: audio.id,
       },
     });
+
+    return audio;
+  }
+
+  async getById(id: string): Promise<IAudio> {
+    const audio = await this._dbAudio.findByIdAndUpdate(id, {
+      $inc: { listenCount: 1 },
+    });
+
+    return audio;
+  }
+
+  async getByIdWithHistory(
+    id: string,
+    userId: Types.ObjectId,
+  ): Promise<IAudio> {
+    const audio = await this.getById(id);
+    if (audio)
+      await this._dbUsers.update({ _id: userId }, { $push: { history: id } });
 
     return audio;
   }
