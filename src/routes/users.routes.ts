@@ -1,6 +1,7 @@
 import type { ApiRoutes } from '@enums';
 import { UsersRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
+import { auth } from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
 
@@ -32,6 +33,11 @@ export const initUsersRoutes = (
   router.get(
     apiPath(path, UsersRoutes.LIKES),
     wrap((req) => usersService.getUserLikedAudios(req)),
+  );
+  router.patch(
+    apiPath(path, UsersRoutes.FOLLOW),
+    auth,
+    wrap((req) => usersService.updateFollow(req)),
   );
 
   return router;

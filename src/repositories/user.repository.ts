@@ -63,4 +63,51 @@ export class UserRepository {
       .findById(userId, { followers: 1, _id: 0 })
       .populate({ path: 'followers' });
   }
+
+  async toggleFollow(
+    followingId: string,
+    userId: Types.ObjectId,
+  ): Promise<IUser> {
+    if (!(await this.getById(followingId))) return null;
+    const isUserFollowed = await this._dbClient.exists({
+      _id: followingId,
+      followers: userId,
+    });
+    let patchedUser;
+    if (isUserFollowed) {
+      await this._dbClient.findByIdAndUpdate(followingId, {
+        $pull: {
+          followers: userId,
+        },
+      });
+      patchedUser = await this._dbClient.findByIdAndUpdate(
+        userId,
+        {
+          $pull: {
+            following: followingId,
+          },
+        },
+        { new: true },
+      );
+    }
+
+    if (!isUserFollowed) {
+      await this._dbClient.findByIdAndUpdate(followingId, {
+        $addToSet: {
+          followers: userId,
+        },
+      });
+      patchedUser = await this._dbClient.findByIdAndUpdate(
+        userId,
+        {
+          $addToSet: {
+            following: followingId,
+          },
+        },
+        { new: true },
+      );
+    }
+
+    return patchedUser;
+  }
 }
