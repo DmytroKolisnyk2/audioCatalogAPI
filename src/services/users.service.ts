@@ -76,4 +76,15 @@ export class UsersService {
 
     return userFollowers;
   };
+
+  async updateFollow(req: Request): Promise<IUser> {
+    const { user, params } = req;
+    const updatedUser = await this._userRepository.toggleFollow(
+      params.userId,
+      user._id,
+    );
+    if (!updatedUser) throw new UserNotFoundError(req.t);
+
+    return updatedUser;
+  }
 }

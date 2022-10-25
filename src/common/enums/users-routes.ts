@@ -5,4 +5,5 @@ export enum UsersRoutes {
   HISTORY = '/:userId/history',
   FOLLOWING = '/:userId/following',
   FOLLOWERS = '/:userId/followers',
+  FOLLOW = '/:userId/follow',
 }
