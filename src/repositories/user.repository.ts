@@ -13,7 +13,9 @@ export class UserRepository {
   }
 
   async getById(userId: Types.ObjectId | string): Promise<IUser> {
-    return await this._dbClient.findById(userId, { password: 0 });
+    return await this._dbClient
+      .findById(userId, { password: 0 })
+      .populate('profile');
   }
 
   async getByUsername(username: string): Promise<IUser> {
