@@ -39,6 +39,7 @@ const userSchema = new Schema<IUser>(
     ],
     profile: {
       type: Schema.Types.ObjectId,
+      ref: Refs.PROFILE,
     },
     playlist: [
       {

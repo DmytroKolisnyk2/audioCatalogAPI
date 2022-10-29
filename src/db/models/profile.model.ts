@@ -6,7 +6,7 @@ import { model, Schema } from 'mongoose';
 
 const profileSchema = new Schema<IProfile>(
   {
-    username: {
+    user: {
       type: Schema.Types.ObjectId,
       unique: true,
       required: true,
@@ -35,7 +35,7 @@ const profileSchema = new Schema<IProfile>(
     genres: [
       {
         type: String,
-        required: true,
+        required: false,
         enum: Genres,
       },
     ],
