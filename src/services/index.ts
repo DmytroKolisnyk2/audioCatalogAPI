@@ -17,7 +17,10 @@ export const initServices = (repositories: Repositories): ServicesInit => {
     repositories.audioRepository,
     cloudinaryService,
   );
-  const profileService = new ProfileService(repositories.profileRepository);
+  const profileService = new ProfileService(
+    repositories.profileRepository,
+    cloudinaryService,
+  );
 
   return {
     profileService,
