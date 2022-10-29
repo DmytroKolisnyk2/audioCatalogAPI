@@ -6,10 +6,8 @@ import { model, Schema } from 'mongoose';
 
 const profileSchema = new Schema<IProfile>(
   {
-    username: {
+    user: {
       type: Schema.Types.ObjectId,
-      unique: true,
-      required: true,
       ref: Refs.USER,
     },
     language: {
