@@ -1,7 +1,4 @@
-import type {
-  UserRepository,
-  AudioRepository,
-} from '@repositories';
+import type { UserRepository, AudioRepository } from '@repositories';
 import type {
   AuthService,
   UsersService,

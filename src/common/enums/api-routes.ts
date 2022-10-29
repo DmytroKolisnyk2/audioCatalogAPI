@@ -3,5 +3,5 @@ export enum ApiRoutes {
   AUTHORIZATION = '/auth',
   DOCS = '/docs',
   USERS = '/users',
-  API = '/api/v1/'
+  API = '/api/v1/',
 }
