@@ -12,8 +12,4 @@ export const initRepositories = (): RepositoriesInit => ({
 
 export type Repositories = ReturnType<typeof initRepositories>;
 
-export {
-  type UserRepository,
-  type AudioRepository,
-  type ProfileRepository,
-};
+export { type UserRepository, type AudioRepository, type ProfileRepository };
