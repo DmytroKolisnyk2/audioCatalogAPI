@@ -8,7 +8,7 @@ export class ProfileRepository {
     this._dbProfile = profileRepository;
   }
 
-  async updateProfileBanner(userId: string, banner: string) {
+  async updateProfileBanner(userId: string, banner: string): Promise<IProfile> {
     const updatedProfile = await this._dbProfile.findOneAndUpdate(
       { user: userId },
       { banner },
@@ -18,7 +18,10 @@ export class ProfileRepository {
     return updatedProfile;
   }
 
-  async updateProfileAvatar(userId: string, avatarUrl: string) {
+  async updateProfileAvatar(
+    userId: string,
+    avatarUrl: string,
+  ): Promise<IProfile> {
     const updatedProfile = await this._dbProfile.findOneAndUpdate(
       { user: userId },
       { avatarUrl },
