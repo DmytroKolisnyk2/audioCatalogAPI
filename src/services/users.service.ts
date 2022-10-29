@@ -87,4 +87,16 @@ export class UsersService {
 
     return updatedUser;
   }
+
+  async updateProfile(req: Request): Promise<IUser> {
+    const { body, params } = req;
+    const user = await this._userRepository.getById(params.userId);
+    if (!user) {
+      throw new UserNotFoundError(req.t);
+    }
+    await this._userRepository.putProfileData(user._id, body);
+    const resUser = await this._userRepository.getById(user._id);
+
+    return resUser;
+  }
 }

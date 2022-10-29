@@ -10,3 +10,9 @@ export interface IProfile {
   genres: string[];
   saveHistory: boolean;
 }
+
+export interface IPutProfile {
+  language: Languages;
+  theme: string;
+  saveHistory: boolean;
+}

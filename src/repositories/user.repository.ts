@@ -1,4 +1,4 @@
-import type { IUser, IAudio, IProfile } from '@types';
+import type { IUser, IAudio, IProfile, IPutProfile } from '@types';
 import type { Model, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -89,6 +89,16 @@ export class UserRepository {
         .findById(userId, { followers: 1, _id: 0 })
         .populate<{ followers: IUser[] }>({ path: 'followers' })
     ).followers;
+  }
+
+  async putProfileData(
+    userId: Types.ObjectId | string,
+    body: IPutProfile,
+  ): Promise<IUser> {
+    const user = await this._dbClient.findById(userId);
+    await this._dbProfile.findByIdAndUpdate(user.profile, body, { new: true });
+
+    return user.populate('profile');
   }
 
   async toggleFollow(

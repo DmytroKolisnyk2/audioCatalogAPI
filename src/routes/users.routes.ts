@@ -14,6 +14,10 @@ export const initUsersRoutes = (
     apiPath(path, UsersRoutes.BY_ID),
     wrap((req) => usersService.getUserById(req)),
   );
+  router.put(
+    apiPath(path, UsersRoutes.BY_ID),
+    wrap((req) => usersService.updateProfile(req)),
+  );
   router.get(
     apiPath(path, UsersRoutes.AUDIOS),
     wrap((req) => usersService.getUserAudios(req)),
