@@ -33,7 +33,7 @@ const profileSchema = new Schema<IProfile>(
     genres: [
       {
         type: String,
-        required: true,
+        required: false,
         enum: Genres,
       },
     ],

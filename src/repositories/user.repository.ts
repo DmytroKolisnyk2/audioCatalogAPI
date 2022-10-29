@@ -1,12 +1,15 @@
-import type { IUser, IAudio } from '@types';
+import type { IUser, IAudio, IProfile } from '@types';
 import type { Model, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export class UserRepository {
   private _dbClient: Model<IUser>;
 
-  constructor(user: Model<IUser>) {
+  private _dbProfile: Model<IProfile>;
+
+  constructor(user: Model<IUser>, profile: Model<IProfile>) {
     this._dbClient = user;
+    this._dbProfile = profile;
   }
 
   async getById(userId: Types.ObjectId | string): Promise<IUser> {
@@ -29,39 +32,61 @@ export class UserRepository {
   }
 
   async createUser(body: IUser, password: string): Promise<IUser> {
-    return await this._dbClient.create({ ...body, password });
+    const newUser = await this._dbClient.create({ ...body, password });
+    const newProfile = await this._dbProfile.create({
+      user: newUser._id,
+    });
+    const resUser = await this._dbClient.findByIdAndUpdate(
+      newUser._id,
+      {
+        profile: newProfile._id,
+      },
+      { new: true },
+    );
+
+    return resUser;
   }
 
   async getUserAudios(userId: Types.ObjectId | string): Promise<IAudio[]> {
-    return await this._dbClient
-      .findById(userId, { createdAudios: 1, _id: 0 })
-      .populate({ path: 'createdAudios' });
+    return (
+      await this._dbClient
+        .findById(userId, { createdAudios: 1, _id: 0 })
+        .populate<{ createdAudios: IAudio[] }>({ path: 'createdAudios' })
+    ).createdAudios;
   }
 
   async getUserLikedAudios(userId: Types.ObjectId | string): Promise<IAudio[]> {
-    return await this._dbClient
-      .findById(userId, { likedAudios: 1, _id: 0 })
-      .populate({ path: 'likedAudios' });
+    return (
+      await this._dbClient
+        .findById(userId, { likedAudios: 1, _id: 0 })
+        .populate<{ likedAudios: IAudio[] }>({ path: 'likedAudios' })
+    ).likedAudios;
   }
 
   async getUserHistoryAudios(
     userId: Types.ObjectId | string,
   ): Promise<IAudio[]> {
-    return await this._dbClient
-      .findById(userId, { history: 1, _id: 0 })
-      .populate({ path: 'history' });
+    return (
+      await this._dbClient
+        .findById(userId, { history: 1, _id: 0 })
+        .populate<{ history: IAudio[] }>({ path: 'history' })
+    ).history;
   }
 
   async getUserFollowing(userId: Types.ObjectId | string): Promise<IUser[]> {
-    return await this._dbClient
-      .findById(userId, { following: 1, _id: 0 })
-      .populate({ path: 'following' });
+    return (
+      await this._dbClient
+        .findById(userId, { following: 1, _id: 0 })
+        .populate<{ following: IUser[] }>({ path: 'following' })
+    ).following;
   }
 
   async getUserFollowers(userId: Types.ObjectId | string): Promise<IUser[]> {
-    return await this._dbClient
-      .findById(userId, { followers: 1, _id: 0 })
-      .populate({ path: 'followers' });
+    return (
+      await this._dbClient
+        .findById(userId, { followers: 1, _id: 0 })
+        .populate<{ followers: IUser[] }>({ path: 'followers' })
+    ).followers;
   }
 
   async toggleFollow(
