@@ -21,7 +21,7 @@ app
   .use(cors())
   .use(express.json())
   .use(localizationMiddleware)
-  .use(routes)
+  .use(ApiRoutes.API, routes)
   .use(ApiRoutes.DOCS, swagger.serve, swagger.setup(swaggerDocs))
   .use(errorHandler);
 

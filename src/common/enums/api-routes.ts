@@ -1,7 +1,7 @@
 export enum ApiRoutes {
   AUDIO = '/audios',
   AUTHORIZATION = '/auth',
-  TEST = '/test',
   DOCS = '/docs',
   USERS = '/users',
+  API = '/api/v1/'
 }

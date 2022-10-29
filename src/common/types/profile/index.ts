@@ -2,7 +2,7 @@ import type { Types } from 'mongoose';
 import type { Languages } from '@enums';
 
 export interface IProfile {
-  username: Types.ObjectId;
+  user: Types.ObjectId;
   language: Languages;
   theme: string;
   avatarUrl: string;
