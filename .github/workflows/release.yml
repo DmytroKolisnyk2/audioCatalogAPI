@@ -12,6 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Render GitHub Action
+        uses: Bounceapp/render-action@0.6.0
+        with:
+          email: ${{ secrets.RENDER_EMAIL }}
+          password: ${{ secrets.RENDER_PASSWORD }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          service-id: srv-xxxxxxxxxxxxxxxxxxxx
+
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
