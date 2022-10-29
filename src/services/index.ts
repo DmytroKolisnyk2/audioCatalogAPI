@@ -22,7 +22,6 @@ export const initServices = (repositories: Repositories): ServicesInit => {
 
   return {
     profileService,
-    testService,
     authService,
     usersService,
     audioService,

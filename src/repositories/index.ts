@@ -1,5 +1,5 @@
 import type { RepositoriesInit } from '@types';
-import { audioModel, testModel, userModel, profileModel } from '@models';
+import { audioModel, userModel, profileModel } from '@models';
 import { UserRepository } from './user.repository';
 import { AudioRepository } from './audio.repository';
 import { ProfileRepository } from './profile.repository';
