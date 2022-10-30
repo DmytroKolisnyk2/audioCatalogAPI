@@ -101,7 +101,7 @@ export class UsersService {
       throw new ForbiddenAccessError(req.t);
     }
 
-    await this._profileRepository.putProfileData(user.profile, body);
+    await this._profileRepository.updateProfileData(user.profile, body);
 
     const resUser = await this._userRepository.getById(user._id);
     if (!resUser) {

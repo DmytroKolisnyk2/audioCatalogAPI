@@ -18,15 +18,6 @@ export class ProfileRepository {
     return updatedProfile;
   }
 
-  async putProfileData(
-    profileId: Types.ObjectId | string,
-    body: UpdateProfileDto,
-  ): Promise<IProfile> {
-    return await this._dbProfile.findByIdAndUpdate(profileId, body, {
-      new: true,
-    });
-  }
-
   async updateProfileAvatar(
     userId: string,
     avatarUrl: string,
@@ -38,5 +29,14 @@ export class ProfileRepository {
     );
 
     return updatedProfile;
+  }
+
+  async updateProfileData(
+    profileId: Types.ObjectId | string,
+    body: UpdateProfileDto,
+  ): Promise<IProfile> {
+    return await this._dbProfile.findByIdAndUpdate(profileId, body, {
+      new: true,
+    });
   }
 }
