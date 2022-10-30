@@ -1,5 +1,5 @@
-import type { IProfile } from '@types';
-import type { Model } from 'mongoose';
+import type { IProfile, UpdateProfileDto } from '@types';
+import type { Model, Types } from 'mongoose';
 
 export class ProfileRepository {
   private _dbProfile: Model<IProfile>;
@@ -16,6 +16,15 @@ export class ProfileRepository {
     );
 
     return updatedProfile;
+  }
+
+  async putProfileData(
+    profileId: Types.ObjectId | string,
+    body: UpdateProfileDto,
+  ): Promise<IProfile> {
+    return await this._dbProfile.findByIdAndUpdate(profileId, body, {
+      new: true,
+    });
   }
 
   async updateProfileAvatar(

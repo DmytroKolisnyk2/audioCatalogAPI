@@ -1,9 +1,10 @@
 import type { ApiRoutes } from '@enums';
 import { UsersRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
-import { auth } from '@middlewares';
+import { JoiValidationMiddleware, auth } from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
+import { profileSchema } from '@validation';
 
 export const initUsersRoutes = (
   { usersService, profileService }: Services,
@@ -16,6 +17,8 @@ export const initUsersRoutes = (
   );
   router.put(
     apiPath(path, UsersRoutes.BY_ID),
+    auth,
+    JoiValidationMiddleware(profileSchema),
     wrap((req) => usersService.updateProfile(req)),
   );
   router.get(

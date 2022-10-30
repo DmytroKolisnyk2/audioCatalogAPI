@@ -9,7 +9,7 @@ import { CloudinaryService } from './cloudinary.service';
 
 export const initServices = (repositories: Repositories): ServicesInit => {
   const authService = new AuthService(repositories.userRepository);
-  const usersService = new UsersService(repositories.userRepository);
+  const usersService = new UsersService(repositories.userRepository, repositories.profileRepository);
   const cloudinaryService = new CloudinaryService(cloudinary);
   const audioService = new AudioService(
     repositories.audioRepository,
