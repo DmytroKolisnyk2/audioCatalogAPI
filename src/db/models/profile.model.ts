@@ -8,8 +8,6 @@ const profileSchema = new Schema<IProfile>(
   {
     user: {
       type: Schema.Types.ObjectId,
-      unique: true,
-      required: true,
       ref: Refs.USER,
     },
     language: {

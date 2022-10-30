@@ -6,7 +6,7 @@ import type { Services } from '@services';
 import { Router } from 'express';
 
 export const initUsersRoutes = (
-  { usersService }: Services,
+  { usersService, profileService }: Services,
   path: ApiRoutes,
 ): Router => {
   const router = Router();
@@ -42,6 +42,18 @@ export const initUsersRoutes = (
     apiPath(path, UsersRoutes.FOLLOW),
     auth,
     wrap((req) => usersService.updateFollow(req)),
+  );
+
+  router.patch(
+    apiPath(path, UsersRoutes.PROFILE_BANNER),
+    auth,
+    wrap((req) => profileService.updateBanner(req)),
+  );
+
+  router.patch(
+    apiPath(path, UsersRoutes.PROFILE_AVATAR),
+    auth,
+    wrap((req) => profileService.updateAvatar(req)),
   );
 
   return router;

@@ -4,6 +4,7 @@ import { cloudinary } from '@utils';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { AudioService } from './audio.service';
+import { ProfileService } from './profile.service';
 import { CloudinaryService } from './cloudinary.service';
 
 export const initServices = (repositories: Repositories): ServicesInit => {
@@ -14,8 +15,13 @@ export const initServices = (repositories: Repositories): ServicesInit => {
     repositories.audioRepository,
     cloudinaryService,
   );
+  const profileService = new ProfileService(
+    repositories.profileRepository,
+    cloudinaryService,
+  );
 
   return {
+    profileService,
     authService,
     usersService,
     audioService,
@@ -30,4 +36,5 @@ export {
   type AuthService,
   type AudioService,
   type CloudinaryService,
+  type ProfileService,
 };

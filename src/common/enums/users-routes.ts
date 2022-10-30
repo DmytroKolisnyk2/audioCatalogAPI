@@ -6,4 +6,6 @@ export enum UsersRoutes {
   FOLLOWING = '/:userId/following',
   FOLLOWERS = '/:userId/followers',
   FOLLOW = '/:userId/follow',
+  PROFILE_BANNER = '/:userId/banner',
+  PROFILE_AVATAR = '/:userId/avatar',
 }
