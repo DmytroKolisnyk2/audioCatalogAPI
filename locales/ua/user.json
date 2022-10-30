@@ -1,5 +1,9 @@
 {
     "validation": {
-        "userNotFound": "Користувача не знайдено!!"
+        "userNotFound": "Користувача не знайдено!!",
+        "profile": {
+            "languages": "Мова повинна бути ua або en !!",
+            "themes": "Тема повинна бути dark або light !!"
+        }
     }
 }

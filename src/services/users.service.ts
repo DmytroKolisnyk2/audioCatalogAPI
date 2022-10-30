@@ -1,13 +1,19 @@
-import type { UserRepository } from '@repositories';
+import type { UserRepository, ProfileRepository } from '@repositories';
 import type { IAudio, IUser, UserDto } from '@types';
 import type { Request } from 'express';
-import { UserNotFoundError } from 'error';
+import { UserNotFoundError, ForbiddenAccessError } from 'error';
 
 export class UsersService {
   private _userRepository: UserRepository;
 
-  constructor(userRepository: UserRepository) {
+  private _profileRepository: ProfileRepository;
+
+  constructor(
+    userRepository: UserRepository,
+    profileRepository: ProfileRepository,
+  ) {
     this._userRepository = userRepository;
+    this._profileRepository = profileRepository;
   }
 
   getUserById = async (req: Request): Promise<UserDto> => {
@@ -86,5 +92,22 @@ export class UsersService {
     if (!updatedUser) throw new UserNotFoundError(req.t);
 
     return updatedUser;
+  }
+
+  async updateProfile(req: Request): Promise<IUser> {
+    const { body, params, user } = req;
+
+    if (params.userId !== String(user._id)) {
+      throw new ForbiddenAccessError(req.t);
+    }
+
+    await this._profileRepository.updateProfileData(user.profile, body);
+
+    const resUser = await this._userRepository.getById(user._id);
+    if (!resUser) {
+      throw new UserNotFoundError(req.t);
+    }
+
+    return resUser;
   }
 }

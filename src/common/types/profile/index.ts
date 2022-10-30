@@ -1,12 +1,18 @@
 import type { Types } from 'mongoose';
-import type { Languages } from '@enums';
+import type { Languages, Themes } from '@enums';
 
 export interface IProfile {
   user: Types.ObjectId;
   language: Languages;
-  theme: string;
+  theme: Themes;
   avatarUrl: string;
   banner: string;
   genres: string[];
+  saveHistory: boolean;
+}
+
+export interface UpdateProfileDto {
+  language: Languages;
+  theme: string;
   saveHistory: boolean;
 }
