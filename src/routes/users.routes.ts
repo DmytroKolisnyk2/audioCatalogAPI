@@ -5,6 +5,7 @@ import { JoiValidationMiddleware, auth } from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
 import { profileSchema } from '@validation';
+import { uploadImageMiddleware } from '@middlewares';
 
 export const initUsersRoutes = (
   { usersService, profileService }: Services,
@@ -46,16 +47,16 @@ export const initUsersRoutes = (
     auth,
     wrap((req) => usersService.updateFollow(req)),
   );
-
   router.patch(
     apiPath(path, UsersRoutes.PROFILE_BANNER),
     auth,
+    uploadImageMiddleware,
     wrap((req) => profileService.updateBanner(req)),
   );
-
   router.patch(
     apiPath(path, UsersRoutes.PROFILE_AVATAR),
     auth,
+    uploadImageMiddleware,
     wrap((req) => profileService.updateAvatar(req)),
   );
 

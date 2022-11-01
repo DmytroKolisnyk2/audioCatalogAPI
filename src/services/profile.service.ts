@@ -1,5 +1,4 @@
 import type { ProfileRepository } from '@repositories';
-import { FilesFields } from '@enums';
 import type { IProfile } from '@types';
 import type { Request } from 'express';
 import type { CloudinaryService } from './cloudinary.service';
@@ -21,7 +20,7 @@ export class ProfileService {
     const { user } = req;
 
     const coverUrl = await this._cloudinaryService
-      .uploadImage(req.files[FilesFields.COVER][0].path)
+      .uploadImage(req.file.path)
       .then((file) => file.secure_url);
 
     const updatedProfile = await this._profileRepository.updateProfileBanner(
@@ -36,7 +35,7 @@ export class ProfileService {
     const { user } = req;
 
     const coverUrl = await this._cloudinaryService
-      .uploadImage(req.files[FilesFields.COVER][0].path)
+      .uploadImage(req.file.path)
       .then((file) => file.secure_url);
 
     const updatedProfile = await this._profileRepository.updateProfileAvatar(
