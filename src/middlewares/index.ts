@@ -4,6 +4,6 @@ export { JoiValidationMiddleware } from './joi-schema-validation.middleware';
 export { localizationMiddleware } from './localization.middleware';
 export { auth } from './auth.middleware';
 export { parseGenresMiddleware } from './parse-genres.middleware';
-export { uploadAudioFilesMiddleware } from './upload-audio-files-middleware';
+export { uploadAudioFilesMiddleware } from './upload-audio-files.middleware';
 export { nonStringAuth } from './non-strict-auth.middleware';
-export { uploadImageMiddleware } from './update-image-file-middleware';
+export { uploadImageMiddleware } from './update-image-file.middleware';
