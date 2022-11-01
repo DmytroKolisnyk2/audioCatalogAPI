@@ -41,6 +41,8 @@ export const fileFilter = (
     (file.fieldname === FilesFields.AUDIO &&
       enumIncludes(AudioExtension, file.mimetype)) ||
     (file.fieldname === FilesFields.COVER &&
+      enumIncludes(ImageExtension, file.mimetype)) ||
+    (file.fieldname === FilesFields.PICTURE &&
       enumIncludes(ImageExtension, file.mimetype))
   ) {
     callback(null, true);

@@ -19,6 +19,7 @@ export const initServices = (repositories: Repositories): ServicesInit => {
     cloudinaryService,
   );
   const profileService = new ProfileService(
+    repositories.userRepository,
     repositories.profileRepository,
     cloudinaryService,
   );
