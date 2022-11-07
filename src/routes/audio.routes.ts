@@ -20,7 +20,7 @@ export const initAudioRoutes = (
   const router = Router();
   router.get(
     path,
-    wrap<Empty, IAudio[]>(() => audioService.getAudios()),
+    wrap<Empty, IAudio[]>((req) => audioService.getAudios(req)),
   );
   router.get(
     apiPath(path, AudioRoutes.AUDIOS_NEW),

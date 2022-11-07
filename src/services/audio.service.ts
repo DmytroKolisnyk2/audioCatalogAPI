@@ -18,8 +18,14 @@ export class AudioService {
     this._cloudinaryService = cloudinaryService;
   }
 
-  async getAudios(): Promise<IAudio[]> {
-    return await this._audioRepository.getAll();
+  async getAudios(req: Request): Promise<IAudio[]> {
+    const { query } = req;
+
+    return query.q
+      ? await this._audioRepository.getAllByName(query.q)
+      : query.tags
+      ? await this._audioRepository.getAllByGenres(query.tags)
+      : await this._audioRepository.getAll();
   }
 
   async getNew(): Promise<IAudio[]> {
