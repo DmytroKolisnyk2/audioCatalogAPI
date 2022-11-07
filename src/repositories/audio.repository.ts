@@ -30,6 +30,14 @@ export class AudioRepository {
     return audio;
   }
 
+  async getAllByName(query): Promise<IAudio[]> {
+    return await this._dbAudio.find({ name: { $regex: query } });
+  }
+
+  async getAllByGenres(genre): Promise<IAudio[]> {
+    return await this._dbAudio.find({ genres: { $regex: genre } });
+  }
+
   async getAll(): Promise<IAudio[]> {
     return await this._dbAudio.find();
   }
