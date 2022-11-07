@@ -35,7 +35,7 @@ export class AudioRepository {
   }
 
   async getAllByGenres(genre): Promise<IAudio[]> {
-    return await this._dbAudio.find({genres: {$regex: genre}});
+    return await this._dbAudio.find({ genres: { $regex: genre } });
   }
 
   async getAll(): Promise<IAudio[]> {
