@@ -43,7 +43,7 @@ export class AudioRepository {
   }
 
   async getNew(): Promise<IAudio[]> {
-    return await this._dbAudio.find().sort({ createdAt: -1, updatedAt: -1 });
+    return await this._dbAudio.find().sort({ createdAt: -1 });
   }
 
   async getTop(): Promise<IAudio[]> {
