@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import cors from 'cors';
 import { appLogger, errorHandler, localizationMiddleware } from '@middlewares';
 import './utils/dotenv';
@@ -17,6 +18,7 @@ const services = initServices(repositories);
 const routes = initRoutes(services);
 
 app
+  .use(helmet())
   .use(appLogger)
   .use(cors())
   .use(express.json())
