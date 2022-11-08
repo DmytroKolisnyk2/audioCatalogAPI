@@ -1,5 +1,5 @@
 import type { UserRepository, ProfileRepository } from '@repositories';
-import type { IAudio, IUser, UserDto } from '@types';
+import type { IAudio, IUser } from '@types';
 import type { Request } from 'express';
 import { UserNotFoundError, ForbiddenAccessError } from 'error';
 
@@ -16,16 +16,14 @@ export class UsersService {
     this._profileRepository = profileRepository;
   }
 
-  getUserById = async (req: Request): Promise<UserDto> => {
+  getUserById = async (req: Request): Promise<IUser> => {
     const { userId } = req.params;
     const user = await this._userRepository.getById(userId);
     if (!user) {
       throw new UserNotFoundError(req.t);
     }
 
-    return {
-      user: user,
-    };
+    return user;
   };
 
   getUserAudios = async (req: Request): Promise<IAudio[]> => {
