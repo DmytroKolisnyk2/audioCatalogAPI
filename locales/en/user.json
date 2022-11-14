@@ -4,6 +4,7 @@
         "profile": {
             "languages": "Language must be ua or en !!",
             "themes": "Theme must be dark or light !!"
-        }
+        },
+        "selfFollow": "You cannot subscribe to yourself"
     }
 }

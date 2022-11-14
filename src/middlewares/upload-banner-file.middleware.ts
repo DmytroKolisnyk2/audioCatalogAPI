@@ -1,18 +1,16 @@
 import { FileSizeConfig } from '@constants';
-import { StatusCode } from '@enums';
+import { FilesFields, StatusCode } from '@enums';
 import { upload } from '@utils';
 import { CoverSizeError, WrongImageFormatError } from 'error';
 import type { NextFunction, Request, Response } from 'express';
 
-export const uploadImageMiddleware = (
+export const uploadBannerMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
-  upload.single('picture')(req, res, () => {
+  upload.single(FilesFields.BANNER)(req, res, () => {
     try {
-      console.log(req.file);
-
       const coverFile: Express.Multer.File = req.file;
 
       if (!coverFile) throw new WrongImageFormatError(req.t);

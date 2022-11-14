@@ -102,12 +102,12 @@ export class UserRepository {
     });
     let patchedUser;
     if (isUserFollowed) {
-      await this._dbClient.findByIdAndUpdate(followingId, {
+      patchedUser = await this._dbClient.findByIdAndUpdate(followingId, {
         $pull: {
           followers: userId,
         },
       });
-      patchedUser = await this._dbClient.findByIdAndUpdate(
+      await this._dbClient.findByIdAndUpdate(
         userId,
         {
           $pull: {
@@ -119,12 +119,12 @@ export class UserRepository {
     }
 
     if (!isUserFollowed) {
-      await this._dbClient.findByIdAndUpdate(followingId, {
+      patchedUser = await this._dbClient.findByIdAndUpdate(followingId, {
         $addToSet: {
           followers: userId,
         },
       });
-      patchedUser = await this._dbClient.findByIdAndUpdate(
+      await this._dbClient.findByIdAndUpdate(
         userId,
         {
           $addToSet: {

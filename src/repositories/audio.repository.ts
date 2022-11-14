@@ -12,9 +12,11 @@ export class AudioRepository {
   }
 
   async getById(id: string): Promise<IAudio> {
-    const audio = await this._dbAudio.findByIdAndUpdate(id, {
-      $inc: { listenCount: 1 },
-    });
+    const audio = await this._dbAudio
+      .findByIdAndUpdate(id, {
+        $inc: { listenCount: 1 },
+      })
+      .populate('author');
 
     return audio;
   }
@@ -31,23 +33,33 @@ export class AudioRepository {
   }
 
   async getAllByName(query): Promise<IAudio[]> {
-    return await this._dbAudio.find({ name: { $regex: query } });
+    return await this._dbAudio
+      .find({ name: { $regex: query } })
+      .populate('author');
   }
 
   async getAllByGenres(genre): Promise<IAudio[]> {
-    return await this._dbAudio.find({ genres: { $regex: genre } });
+    return await this._dbAudio
+      .find({ genres: { $regex: genre } })
+      .populate('author');
   }
 
   async getAll(): Promise<IAudio[]> {
-    return await this._dbAudio.find();
+    return await this._dbAudio.find().populate('author');
   }
 
   async getNew(): Promise<IAudio[]> {
-    return await this._dbAudio.find().sort({ createdAt: -1 });
+    return await this._dbAudio
+      .find()
+      .sort({ createdAt: -1 })
+      .populate('author');
   }
 
   async getTop(): Promise<IAudio[]> {
-    return await this._dbAudio.find().sort({ listenCount: -1 });
+    return await this._dbAudio
+      .find()
+      .sort({ listenCount: -1 })
+      .populate('author');
   }
 
   async create(body: IAudio): Promise<IAudio> {
