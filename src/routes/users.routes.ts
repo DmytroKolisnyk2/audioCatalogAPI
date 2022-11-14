@@ -1,11 +1,15 @@
 import type { ApiRoutes } from '@enums';
 import { UsersRoutes } from '@enums';
 import { apiPath, wrap } from '@helpers';
-import { JoiValidationMiddleware, auth } from '@middlewares';
+import {
+  JoiValidationMiddleware,
+  auth,
+  uploadBannerMiddleware,
+  uploadAvatarMiddleware,
+} from '@middlewares';
 import type { Services } from '@services';
 import { Router } from 'express';
 import { profileSchema } from '@validation';
-import { uploadImageMiddleware } from '@middlewares';
 
 export const initUsersRoutes = (
   { usersService, profileService }: Services,
@@ -50,13 +54,13 @@ export const initUsersRoutes = (
   router.patch(
     apiPath(path, UsersRoutes.PROFILE_BANNER),
     auth,
-    uploadImageMiddleware,
+    uploadBannerMiddleware,
     wrap((req) => profileService.updateBanner(req)),
   );
   router.patch(
     apiPath(path, UsersRoutes.PROFILE_AVATAR),
     auth,
-    uploadImageMiddleware,
+    uploadAvatarMiddleware,
     wrap((req) => profileService.updateAvatar(req)),
   );
 

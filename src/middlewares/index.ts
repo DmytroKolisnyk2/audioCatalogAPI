@@ -6,4 +6,5 @@ export { auth } from './auth.middleware';
 export { parseGenresMiddleware } from './parse-genres.middleware';
 export { uploadAudioFilesMiddleware } from './upload-audio-files.middleware';
 export { nonStringAuth } from './non-strict-auth.middleware';
-export { uploadImageMiddleware } from './update-image-file.middleware';
+export { uploadAvatarMiddleware } from './upload-avatar-file.middleware';
+export { uploadBannerMiddleware } from './upload-banner-file.middleware';

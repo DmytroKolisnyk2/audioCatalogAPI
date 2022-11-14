@@ -1,7 +1,11 @@
 import type { UserRepository, ProfileRepository } from '@repositories';
 import type { IAudio, IUser } from '@types';
 import type { Request } from 'express';
-import { UserNotFoundError, ForbiddenAccessError } from 'error';
+import {
+  UserNotFoundError,
+  ForbiddenAccessError,
+  SelfFollowError,
+} from 'error';
 
 export class UsersService {
   private _userRepository: UserRepository;
@@ -83,6 +87,7 @@ export class UsersService {
 
   async updateFollow(req: Request): Promise<IUser> {
     const { user, params } = req;
+    if (user._id.valueOf() === params.userId) throw new SelfFollowError(req.t);
     const updatedUser = await this._userRepository.toggleFollow(
       params.userId,
       user._id,

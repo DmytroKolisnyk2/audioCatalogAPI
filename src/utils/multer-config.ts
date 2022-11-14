@@ -42,7 +42,9 @@ export const fileFilter = (
       enumIncludes(AudioExtension, file.mimetype)) ||
     (file.fieldname === FilesFields.COVER &&
       enumIncludes(ImageExtension, file.mimetype)) ||
-    (file.fieldname === FilesFields.PICTURE &&
+    (file.fieldname === FilesFields.AVATAR &&
+      enumIncludes(ImageExtension, file.mimetype)) ||
+    (file.fieldname === FilesFields.BANNER &&
       enumIncludes(ImageExtension, file.mimetype))
   ) {
     callback(null, true);
