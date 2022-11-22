@@ -10,7 +10,7 @@ export const parseGenresMiddleware = (
     const genresString: string = req.body.genres;
     if (!(typeof genresString === 'string')) throw new GenresError(req.t);
 
-    req.body.genres = genresString.toLowerCase().replace(/\s+/g, '').split(',');
+    req.body.genres = genresString.split(',');
     next();
   } catch (error) {
     console.log(error);

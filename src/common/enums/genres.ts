@@ -1,6 +1,6 @@
 export enum Genres {
-  ROCK = 'rock',
-  JAZZ = 'jazz',
+  ROCK = 'Rock',
+  JAZZ = 'Jazz',
   POP = 'Pop',
   TRADITIONAL = 'Traditional',
   HIP_HOP = 'Hip-Hop',
